@@ -122,7 +122,11 @@ class ItemList extends StatelessWidget {
                             child: Row(
                               children: [
                                 Container(
-                                  child: Image.network(list[i]['image']),
+                                  child: Image.network(
+                                    list[i]['image'],
+                                    width: 300,
+                                    height: 200,
+                                  ),
                                 )
                               ],
                             ),
