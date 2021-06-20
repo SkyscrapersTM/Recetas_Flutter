@@ -68,10 +68,10 @@ class _LoginPageState extends State<LoginPage> {
                           keyboardType: TextInputType.emailAddress,
                           onSaved: (input) => loginRequestModel.email = input,
                           validator: (input) => !input.contains('@')
-                              ? "Email Id should be valid"
+                              ? "Email vacio o invalido"
                               : null,
                           decoration: new InputDecoration(
-                            hintText: "Email Address",
+                            hintText: "Email: eve.holt@reqres.in",
                             enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                     color: Theme.of(context)
@@ -93,12 +93,12 @@ class _LoginPageState extends State<LoginPage> {
                           keyboardType: TextInputType.text,
                           onSaved: (input) =>
                               loginRequestModel.password = input,
-                          validator: (input) => input.length < 3
-                              ? "Password should be more than 3 characters"
+                          validator: (input) => input.length < 4
+                              ? "Contraseña no menor a 4 caracteres"
                               : null,
                           obscureText: hidePassword,
                           decoration: new InputDecoration(
-                            hintText: "Password",
+                            hintText: "Contraseña: 1234",
                             enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                     color: Theme.of(context)
@@ -147,7 +147,7 @@ class _LoginPageState extends State<LoginPage> {
 
                                   if (value.token.isNotEmpty) {
                                     final snackBar = SnackBar(
-                                        content: Text("Login Successful"));
+                                        content: Text("Login Succes!"));
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (BuildContext pContexto) {
