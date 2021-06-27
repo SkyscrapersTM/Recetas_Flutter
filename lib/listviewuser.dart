@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:team_queso/pages/NewRecipe.dart';
 
 class ListUsers extends StatefulWidget {
   @override
@@ -17,6 +18,13 @@ class _ListUsersState extends State<ListUsers> {
     return json.decode(response.body);
   }
 
+  void _loadPageRecipe() {
+    Navigator.of(context)
+        .push(new MaterialPageRoute<Null>(builder: (BuildContext pContext) {
+      return new NewRecipe("Nueva Receta", 0);
+    }));
+  }
+
   @override
   void initState() {
     super.initState();
@@ -28,7 +36,14 @@ class _ListUsersState extends State<ListUsers> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Lista de Recetas"),
-        actions: [],
+        actions: [
+          IconButton(
+              icon: Icon(
+                Icons.post_add_sharp,
+                color: Colors.black,
+              ),
+              onPressed: _loadPageRecipe),
+        ],
       ),
       body: FutureBuilder<List>(
         future: getData(),
