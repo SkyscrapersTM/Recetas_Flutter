@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:team_queso/model/Client.dart' as cl;
 
 class Recipe {
-  int idRecipe;
+  String idRecipe;
   String name;
   int id;
   String type;
@@ -18,7 +18,7 @@ class Recipe {
   bool favourite;
 
   void inicializar() {
-    this.idRecipe = 0;
+    this.idRecipe = "";
     this.name = "";
     this.id = 0;
     this.type = "";

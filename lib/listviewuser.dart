@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:team_queso/pages/NewRecipe.dart';
+import 'package:team_queso/pages/detailpage.dart';
 
 class ListUsers extends StatefulWidget {
   @override
@@ -77,7 +78,13 @@ class ItemList extends StatelessWidget {
             Container(
                 padding: EdgeInsets.all(10.0),
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () => Navigator.of(context).push(
+                    new MaterialPageRoute(
+                        builder: (BuildContext context) => new Detail(
+                              list: list,
+                              index: i,
+                            )),
+                  ),
                   child: Container(
                     height: 415.3,
                     child: Card(
