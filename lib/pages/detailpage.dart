@@ -16,7 +16,7 @@ class _DetailState extends State<Detail> {
   _navigateList(BuildContext context) async {}
 
   Future<http.Response> removeRecipe(String id) async {
-    var url = 'https://api-recetas-moviles.herokuapp.com/api/recetas/$id';
+    var url = 'https://24c758245aa2.ngrok.io/api/recetas/$id';
 
     var response = await http
         .delete(Uri.parse(url), headers: {"Content-Type": "application/json"});
@@ -53,108 +53,121 @@ class _DetailState extends State<Detail> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      // appBar:
-      //     new AppBar(title: new Text("${widget.list[widget.index]['name']}")),
-      body: new Container(
-        height: 1000.0,
-        padding: const EdgeInsets.all(20.0),
-        child: new Card(
-          child: new Column(
-            children: <Widget>[
-              new Padding(
-                padding: const EdgeInsets.only(top: 30.0),
+    return DefaultTextStyle(
+      style: Theme.of(context).textTheme.bodyText2,
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints viewportConstraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: viewportConstraints.maxHeight,
               ),
-              new Text(
-                widget.list[widget.index]['name'],
-                style: new TextStyle(fontSize: 20.0),
-              ),
-              Divider(),
-              new Text(
-                "Tipo : ${widget.list[widget.index]['type']}",
-                style: new TextStyle(fontSize: 18.0),
-              ),
-              new Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: Row(
-                  children: [
+              child: IntrinsicHeight(
+                child: Column(
+                  children: <Widget>[
                     Container(
-                      child: Image.network(
-                        widget.list[widget.index]['image'],
-                        width: 300,
-                        height: 200,
+                      // A fixed-height child.
+                      color: Colors.white,
+                      height: 130.0,
+                      alignment: Alignment.center,
+                      child: Text(
+                        " \n ${widget.list[widget.index]['name']}",
+                        style: new TextStyle(fontSize: 30.0),
+                      ),
+                    ),
+                    Expanded(
+                      // A flexible child that will grow to fit the viewport but
+                      // still be at least as big as necessary to fit its contents.
+                      child: Container(
+                        color: Colors.white, // Red
+                        height: 960.0,
+                        alignment: Alignment.center,
+                        child: Column(
+                          children: <Widget>[
+                            new Text("\n"),
+                            new Image.network(
+                              widget.list[widget.index]['image'],
+                              width: 300,
+                              height: 200,
+                            ),
+                            new Text("\n"),
+                            new Text(
+                              "Tutorial : ${widget.list[widget.index]['tutorial']}",
+                              style: new TextStyle(fontSize: 18.0),
+                            ),
+                            new Text(
+                              "Tiempo : ${widget.list[widget.index]['weather']} min",
+                              style: new TextStyle(fontSize: 18.0),
+                            ),
+                            new Text("\n"),
+                            new Text(
+                              "Ingredientes : ${widget.list[widget.index]['ingredient']}",
+                              style: new TextStyle(fontSize: 18.0),
+                            ),
+                            new Text(""),
+                            new Text(
+                              "Pasos : ${widget.list[widget.index]['steps']}",
+                              style: new TextStyle(fontSize: 18.0),
+                            ),
+                            new Text("\n"),
+                            new Text(
+                              "Nombre del cliente : ${widget.list[widget.index]['nameClient']}",
+                              style: new TextStyle(fontSize: 18.0),
+                            ),
+                            new Text(
+                              "Email del cliente : ${widget.list[widget.index]['email']}",
+                              style: new TextStyle(fontSize: 18.0),
+                            ),
+                            new Text(
+                              "Edad del cliente : ${widget.list[widget.index]['age']}",
+                              style: new TextStyle(fontSize: 18.0),
+                            ),
+                            new Padding(
+                              padding: const EdgeInsets.only(top: 30.0),
+                            ),
+                            new Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                new RaisedButton(
+                                    child: new Text("Edit"),
+                                    color: Colors.blueAccent,
+                                    shape: new RoundedRectangleBorder(
+                                        borderRadius:
+                                            new BorderRadius.circular(30.0)),
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                          new MaterialPageRoute<Null>(
+                                              builder: (BuildContext pContext) {
+                                        return new NewRecipe(
+                                          "Editar Recetar",
+                                          widget.list[widget.index]['_id']
+                                              .toString(),
+                                          widget.list,
+                                          widget.index,
+                                        );
+                                      }));
+                                    }),
+                                VerticalDivider(),
+                                new RaisedButton(
+                                  child: new Text("Delete"),
+                                  color: Colors.redAccent,
+                                  shape: new RoundedRectangleBorder(
+                                      borderRadius:
+                                          new BorderRadius.circular(30.0)),
+                                  onPressed: () => confirm(),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
-              new Text(
-                "Tutorial : ${widget.list[widget.index]['tutorial']}",
-                style: new TextStyle(fontSize: 18.0),
-              ),
-              new Text(
-                "Tiempo : ${widget.list[widget.index]['weather']} min",
-                style: new TextStyle(fontSize: 18.0),
-              ),
-              new Text(
-                "Ingredientes : ${widget.list[widget.index]['ingredients']}",
-                style: new TextStyle(fontSize: 18.0),
-              ),
-              new Text(
-                "Pasos : ${widget.list[widget.index]['steps']}",
-                style: new TextStyle(fontSize: 18.0),
-              ),
-              new Text(
-                "Pasos : ${widget.list[widget.index]['steps']}",
-                style: new TextStyle(fontSize: 18.0),
-              ),
-              new Text(
-                "Nombre del cliente : ${widget.list[widget.index]['nameClient']}",
-                style: new TextStyle(fontSize: 18.0),
-              ),
-              new Text(
-                "Email del cliente : ${widget.list[widget.index]['email']}",
-                style: new TextStyle(fontSize: 18.0),
-              ),
-              new Text(
-                "Edad del cliente : ${widget.list[widget.index]['age']}",
-                style: new TextStyle(fontSize: 18.0),
-              ),
-              new Padding(
-                padding: const EdgeInsets.only(top: 30.0),
-              ),
-              new Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  new RaisedButton(
-                      child: new Text("Edit"),
-                      color: Colors.blueAccent,
-                      shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30.0)),
-                      onPressed: () {
-                        Navigator.of(context).push(new MaterialPageRoute<Null>(
-                            builder: (BuildContext pContext) {
-                          return new NewRecipe(
-                            "Editar Recetar",
-                            widget.list[widget.index]['_id'].toString(),
-                            widget.list,
-                            widget.index,
-                          );
-                        }));
-                      }),
-                  VerticalDivider(),
-                  new RaisedButton(
-                    child: new Text("Delete"),
-                    color: Colors.redAccent,
-                    shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(30.0)),
-                    onPressed: () => confirm(),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }

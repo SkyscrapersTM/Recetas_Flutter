@@ -12,7 +12,7 @@ class NewRecipe extends StatefulWidget {
   String titulo = "";
   Recipe orecipe = new Recipe();
   String codigoRecipeSeleccionado = "";
-  String urlGeneral = 'https://api-recetas-moviles.herokuapp.com/api/recetas/';
+  String urlGeneral = 'https://24c758245aa2.ngrok.io/api/recetas/';
 
   String mensaje = "";
   bool validacion = false;
@@ -97,8 +97,7 @@ class _NewRecipe extends State<NewRecipe> {
 
     String body = json.encode(data);
     var url;
-    if (widget.codigoRecipeSeleccionado != null ||
-        widget.codigoRecipeSeleccionado != "") {
+    if (widget.titulo == "Editar Recetar") {
       url = Uri.parse(widget.urlGeneral + widget.codigoRecipeSeleccionado);
       var response = await http.put(
         url,
