@@ -8,14 +8,17 @@ import 'package:http/http.dart' as http;
 import 'package:async/async.dart' show Future;
 
 class NewRecipe extends StatefulWidget {
+  final List list;
+  final int index;
   String titulo = "";
   Recipe orecipe = new Recipe();
-  int codigoRecipeSeleccionado = 0;
+  String codigoRecipeSeleccionado = "";
   String urlGeneral = 'https://api-recetas-moviles.herokuapp.com/api/recetas/';
 
   String mensaje = "";
   bool validacion = false;
-  NewRecipe(this.titulo, this.codigoRecipeSeleccionado);
+
+  NewRecipe(this.titulo, this.codigoRecipeSeleccionado, this.list, this.index);
 
   @override
   _NewRecipe createState() => _NewRecipe();
@@ -28,7 +31,7 @@ class _NewRecipe extends State<NewRecipe> {
   final _tfImage = TextEditingController();
   final _tftutorial = TextEditingController();
   final _tfWheater = TextEditingController();
-  final _tfQuanty = TextEditingController();
+  final _tfQuantity = TextEditingController();
   final _tfIngredient = TextEditingController();
   final _tfSteps = TextEditingController();
   final _tfNameClient = TextEditingController();
@@ -37,6 +40,25 @@ class _NewRecipe extends State<NewRecipe> {
 
   void initState() {
     super.initState();
+    widget.orecipe.inicializar();
+    _mostrarDatos();
+  }
+
+  void _mostrarDatos() {
+    if (widget.list != null && widget.index != 0) {
+      _tfNameRecipe.text = widget.list[widget.index]['name'].toString();
+      _tfType.text = widget.list[widget.index]['type'].toString();
+      _tfCategory.text = widget.list[widget.index]['category'].toString();
+      _tfImage.text = widget.list[widget.index]['image'].toString();
+      _tftutorial.text = widget.list[widget.index]['tutorial'].toString();
+      _tfWheater.text = widget.list[widget.index]['weather'].toString();
+      _tfQuantity.text = widget.list[widget.index]['quantity'].toString();
+      _tfIngredient.text = widget.list[widget.index]['ingredient'].toString();
+      _tfSteps.text = widget.list[widget.index]['steps'].toString();
+      _tfNameClient.text = widget.list[widget.index]['nameClient'].toString();
+      _tfEmailClient.text = widget.list[widget.index]['email'].toString();
+      _tfAgeClient.text = widget.list[widget.index]['age'].toString();
+    }
   }
 
   Future<String> _ejecutarServicio() async {
@@ -53,7 +75,7 @@ class _NewRecipe extends State<NewRecipe> {
           "ingredients": [
             {
               "id": 1,
-              "quantity": _tfQuanty.text,
+              "quantity": _tfQuantity.text,
               "ingredient": _tfIngredient.text
             }
           ],
@@ -75,8 +97,24 @@ class _NewRecipe extends State<NewRecipe> {
     };
 
     String body = json.encode(data);
-
-    var url = Uri.parse(widget.urlGeneral);
+    var url;
+    if (widget.codigoRecipeSeleccionado != null ||
+        widget.codigoRecipeSeleccionado != "") {
+      url = Uri.parse(widget.urlGeneral + widget.codigoRecipeSeleccionado);
+      var response = await http.put(
+        url,
+        headers: {"Content-Type": "application/json"},
+        body: body,
+      );
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      setState(() {
+        widget.mensaje = "Datos actualizados correctamente";
+      });
+      return "Procesado";
+    }
+    print("hola");
+    url = Uri.parse(widget.urlGeneral);
     var response = await http.post(
       url,
       headers: {"Content-Type": "application/json"},
@@ -84,6 +122,9 @@ class _NewRecipe extends State<NewRecipe> {
     );
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
+    setState(() {
+      widget.mensaje = "Datos grabados correctamente";
+    });
 
     return "Procesado";
   }
@@ -92,14 +133,14 @@ class _NewRecipe extends State<NewRecipe> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Registro de Servicios " + widget.titulo),
+        title: Text(widget.titulo),
       ),
       body: ListView(
         children: [
           Container(
             padding: EdgeInsets.all(10),
-            child: Text(
-                "Código de cliente: " + widget.orecipe.idRecipe.toString()),
+            child: Text("Código de Receta: " +
+                widget.codigoRecipeSeleccionado.toString()),
           ),
           Container(
             padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
@@ -144,7 +185,7 @@ class _NewRecipe extends State<NewRecipe> {
                       labelText: "Tiempo de Preparación",
                     )),
                 TextField(
-                    controller: _tfQuanty,
+                    controller: _tfQuantity,
                     keyboardType:
                         TextInputType.numberWithOptions(decimal: false),
                     decoration: InputDecoration(
@@ -153,12 +194,16 @@ class _NewRecipe extends State<NewRecipe> {
                     )),
                 TextField(
                     controller: _tfIngredient,
+                    minLines: 3,
+                    maxLines: 6,
                     decoration: InputDecoration(
                       hintText: "Ingresar los ingredientes",
                       labelText: "Ingredientes",
                     )),
                 TextField(
                     controller: _tfSteps,
+                    minLines: 3,
+                    maxLines: 7,
                     decoration: InputDecoration(
                       hintText: "Ingresar los pasos de preparación",
                       labelText: "Preparación",
@@ -184,7 +229,7 @@ class _NewRecipe extends State<NewRecipe> {
                       labelText: "Edad del cliente",
                     )),
                 RaisedButton(
-                  color: Colors.grey[500].withOpacity(0.7),
+                  color: Colors.grey[500],
                   child: Text(
                     "Grabar",
                     style: TextStyle(fontSize: 18, fontFamily: "rbold"),

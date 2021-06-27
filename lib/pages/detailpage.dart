@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:team_queso/listviewuser.dart';
+import 'package:team_queso/pages/NewRecipe.dart';
 import 'package:http/http.dart' as http;
 
 class Detail extends StatefulWidget {
@@ -81,12 +82,22 @@ class _DetailState extends State<Detail> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     new RaisedButton(
-                      child: new Text("Edit"),
-                      color: Colors.blueAccent,
-                      shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30.0)),
-                      onPressed: () => {},
-                    ),
+                        child: new Text("Edit"),
+                        color: Colors.blueAccent,
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0)),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                              new MaterialPageRoute<Null>(
+                                  builder: (BuildContext pContext) {
+                            return new NewRecipe(
+                              "Editar Recetar",
+                              widget.list[widget.index]['_id'].toString(),
+                              widget.list,
+                              widget.index,
+                            );
+                          }));
+                        }),
                     VerticalDivider(),
                     new RaisedButton(
                       child: new Text("Delete"),

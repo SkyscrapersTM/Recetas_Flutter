@@ -22,7 +22,7 @@ class _ListUsersState extends State<ListUsers> {
   void _loadPageRecipe() {
     Navigator.of(context)
         .push(new MaterialPageRoute<Null>(builder: (BuildContext pContext) {
-      return new NewRecipe("Nueva Receta", 0);
+      return new NewRecipe("Nueva Receta", "", null, 0);
     }));
   }
 

@@ -50,18 +50,10 @@ class Recipe {
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
     return Recipe(
-        idRecipe: json["_id"],
-        name: json["name"],
-        id: json["id"],
-        type: json["type"],
-        category: json["category"],
-        image: json["image"],
-        tutorial: json["tutorial"],
-        weather: json["weather"],
-        quantity: json["quantity"],
-        ingredient: json["ingredient"],
-        steps: json["steps"],
-        client: json["client"],
-        favourite: json["favourite"]);
+      idRecipe: json["_id"],
+      name: json["name"],
+      id: json["receta[{'id']}"],
+      type: json["receta[{'type'}]"],
+    );
   }
 }
