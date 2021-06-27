@@ -57,59 +57,102 @@ class _DetailState extends State<Detail> {
       // appBar:
       //     new AppBar(title: new Text("${widget.list[widget.index]['name']}")),
       body: new Container(
-        height: 270.0,
+        height: 1000.0,
         padding: const EdgeInsets.all(20.0),
         child: new Card(
-          child: new Center(
-            child: new Column(
-              children: <Widget>[
-                new Padding(
-                  padding: const EdgeInsets.only(top: 30.0),
-                ),
-                new Text(
-                  widget.list[widget.index]['name'],
-                  style: new TextStyle(fontSize: 20.0),
-                ),
-                Divider(),
-                new Text(
-                  "Price : ${widget.list[widget.index]['price']}",
-                  style: new TextStyle(fontSize: 18.0),
-                ),
-                new Padding(
-                  padding: const EdgeInsets.only(top: 30.0),
-                ),
-                new Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    new RaisedButton(
-                        child: new Text("Edit"),
-                        color: Colors.blueAccent,
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(30.0)),
-                        onPressed: () {
-                          Navigator.of(context).push(
-                              new MaterialPageRoute<Null>(
-                                  builder: (BuildContext pContext) {
-                            return new NewRecipe(
-                              "Editar Recetar",
-                              widget.list[widget.index]['_id'].toString(),
-                              widget.list,
-                              widget.index,
-                            );
-                          }));
-                        }),
-                    VerticalDivider(),
-                    new RaisedButton(
-                      child: new Text("Delete"),
-                      color: Colors.redAccent,
-                      shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30.0)),
-                      onPressed: () => confirm(),
+          child: new Column(
+            children: <Widget>[
+              new Padding(
+                padding: const EdgeInsets.only(top: 30.0),
+              ),
+              new Text(
+                widget.list[widget.index]['name'],
+                style: new TextStyle(fontSize: 20.0),
+              ),
+              Divider(),
+              new Text(
+                "Tipo : ${widget.list[widget.index]['type']}",
+                style: new TextStyle(fontSize: 18.0),
+              ),
+              new Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: Row(
+                  children: [
+                    Container(
+                      child: Image.network(
+                        widget.list[widget.index]['image'],
+                        width: 300,
+                        height: 200,
+                      ),
                     ),
                   ],
-                )
-              ],
-            ),
+                ),
+              ),
+              new Text(
+                "Tutorial : ${widget.list[widget.index]['tutorial']}",
+                style: new TextStyle(fontSize: 18.0),
+              ),
+              new Text(
+                "Tiempo : ${widget.list[widget.index]['weather']} min",
+                style: new TextStyle(fontSize: 18.0),
+              ),
+              new Text(
+                "Ingredientes : ${widget.list[widget.index]['ingredients']}",
+                style: new TextStyle(fontSize: 18.0),
+              ),
+              new Text(
+                "Pasos : ${widget.list[widget.index]['steps']}",
+                style: new TextStyle(fontSize: 18.0),
+              ),
+              new Text(
+                "Pasos : ${widget.list[widget.index]['steps']}",
+                style: new TextStyle(fontSize: 18.0),
+              ),
+              new Text(
+                "Nombre del cliente : ${widget.list[widget.index]['nameClient']}",
+                style: new TextStyle(fontSize: 18.0),
+              ),
+              new Text(
+                "Email del cliente : ${widget.list[widget.index]['email']}",
+                style: new TextStyle(fontSize: 18.0),
+              ),
+              new Text(
+                "Edad del cliente : ${widget.list[widget.index]['age']}",
+                style: new TextStyle(fontSize: 18.0),
+              ),
+              new Padding(
+                padding: const EdgeInsets.only(top: 30.0),
+              ),
+              new Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  new RaisedButton(
+                      child: new Text("Edit"),
+                      color: Colors.blueAccent,
+                      shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0)),
+                      onPressed: () {
+                        Navigator.of(context).push(new MaterialPageRoute<Null>(
+                            builder: (BuildContext pContext) {
+                          return new NewRecipe(
+                            "Editar Recetar",
+                            widget.list[widget.index]['_id'].toString(),
+                            widget.list,
+                            widget.index,
+                          );
+                        }));
+                      }),
+                  VerticalDivider(),
+                  new RaisedButton(
+                    child: new Text("Delete"),
+                    color: Colors.redAccent,
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0)),
+                    onPressed: () => confirm(),
+                  ),
+                ],
+              )
+            ],
           ),
         ),
       ),

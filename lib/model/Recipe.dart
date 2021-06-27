@@ -47,13 +47,4 @@ class Recipe {
       this.steps,
       this.client,
       this.favourite});
-
-  factory Recipe.fromJson(Map<String, dynamic> json) {
-    return Recipe(
-      idRecipe: json["_id"],
-      name: json["name"],
-      id: json["receta[{'id']}"],
-      type: json["receta[{'type'}]"],
-    );
-  }
 }
