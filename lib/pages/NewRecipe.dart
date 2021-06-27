@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:async/async.dart' show Future;
+import 'package:team_queso/listviewuser.dart';
 import 'package:team_queso/model/Recipe.dart';
 import 'package:http/http.dart' as http;
 import 'package:async/async.dart' show Future;
@@ -109,6 +110,11 @@ class _NewRecipe extends State<NewRecipe> {
       setState(() {
         widget.mensaje = "Datos actualizados correctamente";
       });
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (BuildContext pContexto) {
+        return new ListUsers();
+      }));
+
       return "Procesado";
     }
     print("hola");
@@ -123,6 +129,10 @@ class _NewRecipe extends State<NewRecipe> {
     setState(() {
       widget.mensaje = "Datos grabados correctamente";
     });
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (BuildContext pContexto) {
+      return new ListUsers();
+    }));
 
     return "Procesado";
   }

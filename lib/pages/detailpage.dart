@@ -39,6 +39,10 @@ class _DetailState extends State<Detail> {
           onPressed: () {
             removeRecipe(widget.list[widget.index]['_id'].toString());
             _navigateList(context);
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (BuildContext pContexto) {
+              return new ListUsers();
+            }));
           },
         ),
         new RaisedButton(
