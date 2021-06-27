@@ -14,7 +14,7 @@ class ListUsers extends StatefulWidget {
 class _ListUsersState extends State<ListUsers> {
   List data;
   Future<List> getData() async {
-    String url = 'https://24c758245aa2.ngrok.io/api/recetas';
+    String url = 'https://api-recetas-moviles.herokuapp.com/api/recetas/';
     final response = await http.get(Uri.parse(url));
     return json.decode(response.body);
   }

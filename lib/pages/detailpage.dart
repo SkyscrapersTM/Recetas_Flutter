@@ -16,7 +16,7 @@ class _DetailState extends State<Detail> {
   _navigateList(BuildContext context) async {}
 
   Future<http.Response> removeRecipe(String id) async {
-    var url = 'https://24c758245aa2.ngrok.io/api/recetas/$id';
+    var url = 'https://api-recetas-moviles.herokuapp.com/api/recetas/$id';
 
     var response = await http
         .delete(Uri.parse(url), headers: {"Content-Type": "application/json"});

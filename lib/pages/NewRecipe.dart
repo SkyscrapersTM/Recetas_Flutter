@@ -13,7 +13,7 @@ class NewRecipe extends StatefulWidget {
   String titulo = "";
   Recipe orecipe = new Recipe();
   String codigoRecipeSeleccionado = "";
-  String urlGeneral = 'https://24c758245aa2.ngrok.io/api/recetas/';
+  String urlGeneral = 'https://api-recetas-moviles.herokuapp.com/api/recetas/';
 
   String mensaje = "";
   bool validacion = false;
